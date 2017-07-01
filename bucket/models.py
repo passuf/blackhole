@@ -62,12 +62,13 @@ class RequestFactory:
         )
 
         errors = ''
+        header = dict(request.META)
 
         # Parse the HEADER
         try:
             # Find non-serializable keys
             keys_to_remove = []
-            for key in request.META.keys():
+            for key in header.keys():
                 # Remove WSGI related keys
                 if key.startswith('wsgi.'):
                     keys_to_remove.append(key)
@@ -75,29 +76,29 @@ class RequestFactory:
 
                 # Try if object is serializable
                 try:
-                    json.dumps(request.META[key])
+                    json.dumps(header[key])
                 except Exception:
                     keys_to_remove.append(key)
                     continue
 
             # Remove invalid keys
             for key in keys_to_remove:
-                request.META.pop(key, None)
+                header.pop(key, None)
 
             # Finally try to parse the header
-            req.headers = json.dumps(request.META)
+            req.headers = json.dumps(header)
         except Exception as e:
             print(e, traceback.format_exc())
-            req.headers = request.META
+            req.headers = header
             errors += '\n' + str(traceback.format_exc())
 
         # Parse the remote address
         try:
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            x_forwarded_for = header.get('HTTP_X_FORWARDED_FOR')
             if x_forwarded_for:
                 req.remote_address = x_forwarded_for.split(',')[0]
             else:
-                req.remote_address = request.META.get('REMOTE_ADDR')
+                req.remote_address = header.get('REMOTE_ADDR')
         except Exception as e:
             print(e, traceback.format_exc())
             req.remote_address = 'error'
@@ -105,7 +106,7 @@ class RequestFactory:
 
         # Parse the HTTP Referer
         try:
-            req.http_referer = request.META.get('HTTP_REFERER')
+            req.http_referer = header.get('HTTP_REFERER')
         except Exception as e:
             print(e, traceback.format_exc())
             req.http_referer = 'error'
