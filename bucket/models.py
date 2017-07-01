@@ -4,6 +4,7 @@ import traceback
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 
 
 class Bucket(models.Model):
@@ -14,6 +15,10 @@ class Bucket(models.Model):
 
     created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
     modified_at = models.DateTimeField(_('Modified at'), auto_now=True)
+
+    @property
+    def url(self):
+        return '{base_url}/{id}/'.format(base_url=settings.BASE_URL, id=self.id)
 
     def __str__(self):
         return self.title

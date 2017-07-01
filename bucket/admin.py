@@ -4,7 +4,7 @@ from .models import Bucket, Request
 
 
 class BucketAdmin(admin.ModelAdmin):
-    readonly_fields = ['created_at', 'modified_at']
+    readonly_fields = ['url', 'created_at', 'modified_at']
     list_display = ['id', 'title', 'active', 'created_at', 'modified_at']
     list_filter = ['active', 'created_at', 'modified_at']
     search_fields = ['id', 'title', 'description']

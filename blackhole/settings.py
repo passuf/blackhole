@@ -122,6 +122,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+BASE_URL = 'https://blackhole.passuf.ch'
+
 # You can override the default settings by creating a local_settings.py file
 try:
     from blackhole.local_settings import *
