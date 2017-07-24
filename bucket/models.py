@@ -1,6 +1,7 @@
 import json
 import uuid
 import traceback
+from picklefield.fields import PickledObjectField
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -40,6 +41,7 @@ class Request(models.Model):
     form_data = models.TextField('Form Data', blank=True, null=True)
     cookies = models.TextField(_('Cookies'), blank=True, null=True)
     error = models.TextField(_('Error'), blank=True, null=True)
+    custom_values = PickledObjectField(_('Custom Values'), blank=True, null=True)
 
     created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
     modified_at = models.DateTimeField(_('Modified at'), auto_now=True)
@@ -58,7 +60,7 @@ class RequestFactory:
             path=request.path,
             method=request.method,
             host=request.get_host(),
-            response_code=200,
+            custom_values={},
         )
 
         errors = ''
