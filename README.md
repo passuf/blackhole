@@ -1,6 +1,24 @@
 # Black Hole
 Collect arbitrary HTTP requests to see what your HTTP client is sending, e.g. when debugging webhooks.
 
+<p align="center">
+  <img src="img/bucket.png" alt="Bucket" width="750">
+</p>
+
+<p align="center">
+  <img src="img/requests.png" alt="Requests" width="750">
+</p>
+
+## Features
+* Create buckets with unique URLs to send requests to
+* Collect and analyse the HTTP requests:
+  * HTTP Header
+  * Body
+  * GET query parameters
+  * Form data
+  * Raw HTTP request
+  * Custom values parsed into a dictionary
+
 ## Setup
 ### Install the Requirements
 
