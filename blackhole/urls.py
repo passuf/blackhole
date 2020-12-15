@@ -21,5 +21,5 @@ from bucket import urls as bucket_urls
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^', include(bucket_urls, namespace='bucket')),
+    url(r'^', include(('bucket.urls', 'bucket'), namespace='bucket')),
 ]

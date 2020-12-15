@@ -27,7 +27,7 @@ class Bucket(models.Model):
 
 class Request(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    bucket = models.ForeignKey(Bucket, related_name='requests')
+    bucket = models.ForeignKey(Bucket, related_name='requests', on_delete=models.CASCADE)
     comments = models.TextField(_('Comments'), blank=True, null=True)
     method = models.CharField(_('Method'), max_length=255, blank=True, null=True)
     headers = models.TextField(_('Headers'), blank=True, null=True)
