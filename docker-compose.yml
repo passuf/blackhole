@@ -1,0 +1,12 @@
+version: '3.2'
+
+services:
+  web:
+    build: .
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8078
+    volumes:
+      - .:/code
+    ports:
+      - "8078:8078"
+    network_mode: "host"
